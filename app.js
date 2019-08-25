@@ -1,0 +1,27 @@
+// 引入相关模块
+const express = require("express");
+const mongoose = require("mongoose");
+const path = require('path');
+
+// 实例化一个express对象
+let app = express();
+//使用静态资源库
+app.use("/public", express.static(path.join(__dirname, "/public")));
+
+//配置模板引擎
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+// 给app绑定路由，所有通过"/"的url都将通过以下方法
+app.get("/", require('./routers/main.js'));
+
+// 监听8080端口
+mongoose.connect("mongodb://localhost:27017/blog_db",(err)=>{
+    if(!err){
+        app.listen(8080, ()=>console.log('server is runing at http://localhost:8080'));
+    }
+    else{
+        console.log("database can't connet");
+        throw err;
+    }
+})
