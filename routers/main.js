@@ -2,19 +2,12 @@ const express = require('express');
 const router = express.Router();
 const contentModel = require("../models/content")
 
-// router.get("/content", (req, res, next)=>{
-//     contentModel.find({},(err,all)=>{
-//         if(!err){
-//             res.json(all);
-//         }
-//         else{
-//             throw err;
-//         }
-//     });
-// });
+router.get("/", (req, res, next)=>{
+    res.render("index");
+});
 
 // 内容添加的保存
-router.post("/content", (req, res, next) => {
+router.post("/add", (req, res, next) => {
     let title = req.body.title;
     let category = req.body.category;
     let description = req.body.description;
