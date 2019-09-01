@@ -9,51 +9,38 @@ router.get("/", (req, res, next)=>{
 // 内容添加的保存
 router.post("/add", (req, res, next) => {
     let title = req.body.title;
-    let category = req.body.category;
-    let description = req.body.description;
+    let tags = req.body.tags.split(' ');
     let content = req.body.content;
-    // 后端进行简单的验证
-    if (title === "") {
-        // 如果标题为空，渲染错误页面
-        res.render("admin/error", {
-            url: null,
-            userInfo: req.userInfo,
-            message: "标题不能为空"
-        });
-        return;
-    } else if (description === "") {
-        // 如果简介为空，渲染错误页面
-        res.render("admin/error", {
-            url: null,
-            userInfo: req.userInfo,
-            message: "简介不能为空"
-        });
-        return;
-    } else if (content === "") {
-        // 如果正文为空，渲染错误页面
-        res.render("admin/error", {
-            url: null,
-            userInfo: req.userInfo,
-            message: "正文不能为空"
-        });
-        return;
-    } else {
-        // 一切正常，存入数据库
-        contentModel.create({
-            title: title,
-            category: category,
-            author: "woodenrabbit",
-            description: description,
-            content: content
-        }, (err) => {
-            if (!err) {
-                // 保存成功
-                res.send("提交成功！");
-            } else {
-                throw err;
-            }
-        });
-    }
+    let description = req.body.description || content.substring(0,10);
+
+    contentModel.create({
+        title: title,
+        tags: tags,
+        content: content,
+        description: description
+    }, (err) => {
+        if (!err) {
+            res.send("提交成功！");
+        } else {
+            res.send("提交失败！"+err);
+        }
+    });
+});
+
+router.put("/:blog_id", (req, res, next) => {
+    let id = req.params.blog_id;
+    let title = req.body.title;
+    let tags = req.body.tags.split(' ');
+    let content = req.body.content;
+    let editTime = req.body.editTime;
+
+    contentModel.update({_id: id},{$set:{title:title, tags: tags, content: content, editTime: editTime}}, (err) => {
+        if (!err) {
+            res.send("提交成功！");
+        } else {
+            res.send("提交失败！"+err);
+        }
+    });
 });
 
 module.exports = router;

@@ -17,16 +17,16 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // 给app绑定路由，所有通过"/"的url都将通过以下方法
-app.get("/", require('./routers/index.js'));
+app.use("/", require('./routers/index.js'));
 app.use("/content", require('./routers/main.js'));
 
 // 监听8080端口
 mongoose.connect("mongodb://localhost:27017/blog_db",(err)=>{
     if(!err){
-        app.listen(8080, ()=>console.log('server is runing at http://localhost:8080'));
+        app.listen(3000, ()=>console.log('server is runing at http://localhost:3000'));
     }
     else{
-        console.log("database can't connet");
-        throw err;
+        console.log("database can't connet"+err);
+	throw err;
     }
 })

@@ -16,28 +16,32 @@ const moment = require("moment");
 */
 module.exports = new mongoose.Schema({
     title: String,
-    category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "category"
-    },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
-    },
-    addTime: {
+    content: {
         type: String,
-        default: moment().format('YYYY-MM-DD h:mm:ss a')
-    },
-    views: {
-        type: Number,
-        default: 0
+        default: ""
     },
     description: {
         type: String,
         default: ""
     },
-    content: {
+    tags: {
+        type: Array,
+        default: ["other"]
+    },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category"
+    },
+    addTime: {
         type: String,
-        default: ""
-    }
+        default: moment().format('YYYY-MM-DD hh:mm')
+    },
+    editTime: {
+        type: String,
+        default: moment().format('YYYY-MM-DD hh:mm')
+    },
+    views: {
+        type: Number,
+        default: 0
+    },
 })
