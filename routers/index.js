@@ -16,7 +16,7 @@ router.route('/blog/:blog_id')
 
 router.route('/blogs')
     .get(function (req, res, next) {
-        Post.find({},{author:0,content:0},(err,result)=>{
+        Post.find({},{author:0},{sort:[{'addTime':-1}]},(err,result)=>{
             if(!err){
                 res.json(result);
             }
@@ -28,7 +28,7 @@ router.route('/blogs')
 
 router.route('/blogs/:tag_name')
     .get(function (req, res, next) {
-        Post.find({tags:req.params.tag_name},{author:0,content:0},(err,result)=>{
+        Post.find({tags:req.params.tag_name},{author:0},(err,result)=>{
             if(!err){
                 res.json(result);
             }

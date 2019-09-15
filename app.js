@@ -19,6 +19,7 @@ app.set("view engine", "ejs");
 // 给app绑定路由，所有通过"/"的url都将通过以下方法
 app.use("/", require('./routers/index.js'));
 app.use("/content", require('./routers/main.js'));
+app.use("/user", require('./routers/user.js'));
 
 // 监听8080端口
 mongoose.connect("mongodb://localhost:27017/blog_db",(err)=>{
