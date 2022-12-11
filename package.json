@@ -15,7 +15,7 @@
     "body-parser": "^1.19.0",
     "cookies": "^0.7.3",
     "ejs": "^2.6.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "marked": "^0.7.0",
     "moment": "^2.24.0",
     "mongoose": "^5.6.10"
